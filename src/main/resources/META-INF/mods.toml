@@ -1,0 +1,31 @@
+modLoader="javafml" #mandatory
+loaderVersion="[33,)" #mandatory
+license="CC BY Miraisoft"
+
+[[mods]] #mandatory
+modId="miraisoftloginmessages" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Custom login messages" #mandatory
+displayURL="https://www.miraisoft.de/mc-forge-loginmessages/" #optional
+logoFile="loginmessages.png" #optional
+credits="Thank you for using this mod" #optional
+authors="kuuhaku" #optional
+description='''
+Miraisoft's login message tool
+Modify login messages by in-game command /loginmessage
+You can add, list and remove custom login messages. You can also call help to get usage examples.
+'''
+
+[[dependencies.miraisoftloginmessages]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[33,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+	
+[[dependencies.miraisoftloginmessages]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.2,)"
+    ordering="NONE"
+    side="BOTH"
