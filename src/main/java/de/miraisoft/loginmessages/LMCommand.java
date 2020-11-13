@@ -41,11 +41,11 @@ public class LMCommand implements Command<CommandSource> {
 	public static final String ARG0 = "arg0";
 	public static final String ARG1 = "arg1";
 
-	private static final LMArgumentType.ValidArgument ADD = LMArgumentType.ValidArgument.ADD;
-	private static final LMArgumentType.ValidArgument LIST = LMArgumentType.ValidArgument.LIST;
-	private static final LMArgumentType.ValidArgument REMOVE = LMArgumentType.ValidArgument.REMOVE;
-	private static final LMArgumentType.ValidArgument REMOVEALL = LMArgumentType.ValidArgument.REMOVEALL;
-	private static final LMArgumentType.ValidArgument HELP = LMArgumentType.ValidArgument.HELP;
+	public static final String ADD = "add";
+	public static final String LIST = "list";
+	public static final String REMOVE = "remove";
+	public static final String REMOVEALL = "removeall";
+	public static final String HELP = "help";
 
 	private static final int MESSAGE_LENGTH_LIMIT = 100;
 
@@ -56,15 +56,15 @@ public class LMCommand implements Command<CommandSource> {
 			if (context.getArgument(ARG0, String.class) != null) {
 				final File file = LoginMessagesMod.getFile();
 				final String arg0Value = context.getArgument(ARG0, String.class);
-				if (ADD.isMatch(arg0Value) && context.getArgument(ARG1, String.class) != null) {
+				if (ADD.equals(arg0Value) && context.getArgument(ARG1, String.class) != null) {
 					addLoginMessage(context, player, file);
-				} else if (REMOVEALL.isMatch(arg0Value)) {
+				} else if (REMOVEALL.equals(arg0Value)) {
 					removeAllLoginMessages(player, file);
-				} else if (LIST.isMatch(arg0Value)) {
+				} else if (LIST.equals(arg0Value)) {
 					listLoginMessages(player, file);
-				} else if (REMOVE.isMatch(arg0Value) && context.getArgument(ARG1, String.class) != null) {
+				} else if (REMOVE.equals(arg0Value) && context.getArgument(ARG1, String.class) != null) {
 					removeSingleLoginMessage(context, player, file);
-				} else if (HELP.isMatch(arg0Value)) {
+				} else if (HELP.equals(arg0Value)) {
 					displayUsageHelp(player);
 				}
 			}

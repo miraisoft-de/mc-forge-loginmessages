@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -69,10 +70,10 @@ public class LoginMessagesMod {
 
 			dispatcher.register(Commands.literal(LMCommand.LOGINMESSAGE)
 					.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
-					.then(Commands.argument(LMCommand.ARG0, new LMArgumentType(LMArgumentType.TYPE_LEVEL0))
+					.then(Commands.argument(LMCommand.ARG0, StringArgumentType.word())
 							.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
 							.executes(new LMCommand())
-							.then(Commands.argument(LMCommand.ARG1, new LMArgumentType(LMArgumentType.TYPE_LEVEL1))
+							.then(Commands.argument(LMCommand.ARG1, StringArgumentType.greedyString())
 									.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
 									.executes(new LMCommand()))));
 
