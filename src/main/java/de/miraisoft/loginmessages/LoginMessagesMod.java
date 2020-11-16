@@ -18,10 +18,10 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 /**
  * Main class for Minecraft forge mod miraisoftloginmessages<br>
@@ -64,9 +64,9 @@ public class LoginMessagesMod {
 	}
 
 	@SubscribeEvent
-	public void registerCommand(final RegisterCommandsEvent event) {
+	public static void onServerStarting(FMLServerStartingEvent event) {
 		try {
-			final CommandDispatcher<CommandSource> dispatcher = event.getDispatcher();
+			final CommandDispatcher<CommandSource> dispatcher = event.getCommandDispatcher();
 
 			dispatcher.register(Commands.literal(LMCommand.LOGINMESSAGE)
 					.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
