@@ -12,10 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -31,7 +31,6 @@ import net.minecraftforge.fml.common.Mod;
  * @author pcs
  * @since 1.0
  * @see LMCommand
- * @see LMArgumentType
  *
  */
 @Mod(LoginMessagesMod.MOD_ID)
@@ -52,11 +51,18 @@ public class LoginMessagesMod {
 			try {
 				Files.createDirectory(directory);
 			} catch (final IOException e) {
-				logger.error("[init]Could not create config directory", e);
+				logger.error("[init] Could not create config directory", e);
 			}
 		}
 		MinecraftForge.EVENT_BUS.register(this);
-		logger.debug("[init]Mod miraisoftloginmessages is initialized");
+		logger.debug("[init] Mod miraisoftloginmessages is initialized");
+
+		try {
+			ArgumentTypes.register("lmargument0", LMArgumentFirst.class, new LMArgumentFirst.Serializer());
+			ArgumentTypes.register("lmargument1", LMArgumentSecond.class, new LMArgumentSecond.Serializer());
+		} catch (Exception e) {
+			logger.error("[init] Cannot register serializer for argument types", e);
+		}
 	}
 
 	public static File getFile() {
@@ -68,18 +74,19 @@ public class LoginMessagesMod {
 		try {
 			final CommandDispatcher<CommandSource> dispatcher = event.getDispatcher();
 
-			dispatcher.register(Commands.literal(LMCommand.LOGINMESSAGE)
+			dispatcher.register(Commands.literal(LMConstants.LOGINMESSAGE)
 					.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
-					.then(Commands.argument(LMCommand.ARG0, StringArgumentType.word())
+					.then(Commands.argument(LMConstants.ARG0, new LMArgumentFirst())
 							.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
 							.executes(new LMCommand())
-							.then(Commands.argument(LMCommand.ARG1, StringArgumentType.greedyString())
+							.then(Commands.argument(LMConstants.ARG1, new LMArgumentSecond())
 									.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
 									.executes(new LMCommand()))));
 
-			logger.debug("[registerCommand] Command /" + LMCommand.LOGINMESSAGE + " has successfully been registered");
+			logger.debug(
+					"[registerCommand] Command /" + LMConstants.LOGINMESSAGE + " has successfully been registered");
 		} catch (final Exception e) {
-			logger.error("[registerCommand] Failed to register command /" + LMCommand.LOGINMESSAGE, e);
+			logger.error("[registerCommand] Failed to register command /" + LMConstants.LOGINMESSAGE, e);
 		}
 
 	}

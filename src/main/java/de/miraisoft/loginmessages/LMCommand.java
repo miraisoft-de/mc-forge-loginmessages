@@ -36,16 +36,14 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 public class LMCommand implements Command<CommandSource> {
 	private static final Logger logger = LogManager.getLogger();
 
-	public static final String LOGINMESSAGE = "loginmessage";
+	private static final String ARG0 = LMConstants.ARG0;
+	private static final String ARG1 = LMConstants.ARG1;
 
-	public static final String ARG0 = "arg0";
-	public static final String ARG1 = "arg1";
-
-	public static final String ADD = "add";
-	public static final String LIST = "list";
-	public static final String REMOVE = "remove";
-	public static final String REMOVEALL = "removeall";
-	public static final String HELP = "help";
+	private static final String ADD = LMConstants.ADD;
+	private static final String LIST = LMConstants.LIST;
+	private static final String REMOVE = LMConstants.REMOVE;
+	private static final String REMOVEALL = LMConstants.REMOVEALL;
+	private static final String HELP = LMConstants.HELP;
 
 	private static final int MESSAGE_LENGTH_LIMIT = 100;
 
