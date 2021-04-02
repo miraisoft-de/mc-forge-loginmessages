@@ -43,7 +43,6 @@ public class LoginMessagesMod {
 	private static final Path directory = Paths.get("config/" + MOD_ID);
 	private static final File file = new File(directory.toUri().getPath() + "/loginmessages.conf");
 
-	private static final String[] TEXT_FORMATTINGS = new String[] { "§d§l", "§9" };
 	private static final int MOD_PERMISSION_LEVEL = 3;
 
 	public LoginMessagesMod() {
@@ -101,7 +100,7 @@ public class LoginMessagesMod {
 				while (reader.ready()) {
 					final StringBuffer lineBuffer = new StringBuffer();
 					// change default formatting between the messages to make them easier to read
-					lineBuffer.append(getFormatting(n));
+					lineBuffer.append(LMFormatter.getDefaultLineFormatting(n));
 					lineBuffer.append(reader.readLine());
 					MessageUtil.send(player, lineBuffer.toString());
 					n++;
@@ -113,7 +112,5 @@ public class LoginMessagesMod {
 		}
 	}
 
-	private String getFormatting(final int n) {
-		return TEXT_FORMATTINGS[n % TEXT_FORMATTINGS.length];
-	}
+	
 }
