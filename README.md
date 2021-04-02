@@ -15,4 +15,4 @@ Usage examples:
 
 /loginmessage help
 
-/loginmessage add <<c>>Red text
+/loginmessage add <<<<c>>>>Red text
