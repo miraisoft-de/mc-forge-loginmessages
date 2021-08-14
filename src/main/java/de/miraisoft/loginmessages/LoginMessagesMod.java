@@ -13,10 +13,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.mojang.brigadier.CommandDispatcher;
 
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.ArgumentTypes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.synchronization.ArgumentTypes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
@@ -71,15 +72,15 @@ public class LoginMessagesMod {
 	@SubscribeEvent
 	public void registerCommand(final RegisterCommandsEvent event) {
 		try {
-			final CommandDispatcher<CommandSource> dispatcher = event.getDispatcher();
+			final CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
 
 			dispatcher.register(Commands.literal(LMConstants.LOGINMESSAGE)
-					.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
+					.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL))
 					.then(Commands.argument(LMConstants.ARG0, new LMArgumentFirst())
-							.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
+							.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL))
 							.executes(new LMCommand())
 							.then(Commands.argument(LMConstants.ARG1, new LMArgumentSecond())
-									.requires(source -> source.hasPermissionLevel(MOD_PERMISSION_LEVEL))
+									.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL))
 									.executes(new LMCommand()))));
 
 			logger.debug(
@@ -92,7 +93,7 @@ public class LoginMessagesMod {
 
 	@SubscribeEvent
 	public void onPlayerLogin(final PlayerLoggedInEvent event) {
-		final PlayerEntity player = event.getPlayer();
+		final Player player = event.getPlayer();
 		if (file.exists()) {
 			try {
 				final BufferedReader reader = new BufferedReader(new FileReader(file));

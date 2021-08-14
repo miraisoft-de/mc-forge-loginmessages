@@ -2,8 +2,8 @@ package de.miraisoft.loginmessages;
 
 import com.mojang.brigadier.Message;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * Useful methods for Minecraft message handling<br>
@@ -22,8 +22,8 @@ public class MessageUtil {
 	 * @param player
 	 * @param message
 	 */
-	public static void send(final PlayerEntity player, final String message) {
-		player.sendStatusMessage(new StringTextComponent(FORMATTING + message), false);
+	public static void send(final Player player, final String message) {
+		player.displayClientMessage(new TextComponent(FORMATTING + message), false);
 	}
 
 	/**

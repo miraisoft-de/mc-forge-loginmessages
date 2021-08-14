@@ -16,8 +16,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 
-import net.minecraft.command.CommandSource;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Implementation for command /loginmessage<br>
@@ -33,7 +33,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
  * @since 1.0
  *
  */
-public class LMCommand implements Command<CommandSource> {
+public class LMCommand implements Command<CommandSourceStack> {
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final String ARG0 = LMConstants.ARG0;
@@ -48,8 +48,8 @@ public class LMCommand implements Command<CommandSource> {
 	private static final int MESSAGE_LENGTH_LIMIT = 100;
 
 	@Override
-	public int run(final CommandContext<CommandSource> context) throws CommandSyntaxException {
-		final ServerPlayerEntity player = context.getSource().asPlayer();
+	public int run(final CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+		final ServerPlayer player = context.getSource().getPlayerOrException();
 		try {
 			if (context.getArgument(ARG0, String.class) != null) {
 				final File file = LoginMessagesMod.getFile();
@@ -76,7 +76,7 @@ public class LMCommand implements Command<CommandSource> {
 		return 0;
 	}
 
-	private void removeSingleLoginMessage(final CommandContext<CommandSource> context, final ServerPlayerEntity player,
+	private void removeSingleLoginMessage(final CommandContext<CommandSourceStack> context, final ServerPlayer player,
 			final File file) throws CommandSyntaxException {
 		try {
 			boolean removed = false;
@@ -135,7 +135,7 @@ public class LMCommand implements Command<CommandSource> {
 		}
 	}
 
-	private void listLoginMessages(final ServerPlayerEntity player, final File file) throws CommandSyntaxException {
+	private void listLoginMessages(final ServerPlayer player, final File file) throws CommandSyntaxException {
 		try {
 			if (file.exists()) {
 				final BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -156,7 +156,7 @@ public class LMCommand implements Command<CommandSource> {
 		}
 	}
 
-	private void removeAllLoginMessages(final ServerPlayerEntity player, final File file)
+	private void removeAllLoginMessages(final ServerPlayer player, final File file)
 			throws CommandSyntaxException {
 		try {
 			if (file.exists()) {
@@ -172,7 +172,7 @@ public class LMCommand implements Command<CommandSource> {
 		}
 	}
 
-	private void addLoginMessage(final CommandContext<CommandSource> context, final ServerPlayerEntity player,
+	private void addLoginMessage(final CommandContext<CommandSourceStack> context, final ServerPlayer player,
 			final File file) throws CommandSyntaxException {
 		try {
 			final String arg1 = context.getArgument(ARG1, String.class);
@@ -196,7 +196,7 @@ public class LMCommand implements Command<CommandSource> {
 		}
 	}
 
-	private void displayUsageHelp(final ServerPlayerEntity player) throws CommandSyntaxException {
+	private void displayUsageHelp(final ServerPlayer player) throws CommandSyntaxException {
 		String[] examples = new String[] { "/loginmessage add Welcome to the server!", "/loginmessage list",
 				"/loginmessage remove 1", "/loginmessage removeall", "/loginmessage add <<c>>Red Text" };
 		MessageUtil.send(player, "Command usage examples:");

@@ -15,8 +15,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 
-import net.minecraft.command.arguments.IArgumentSerializer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.commands.synchronization.ArgumentSerializer;
+import net.minecraft.network.FriendlyByteBuf;
 
 /**
  * {@code ArgumentType} implementation for Minecraft forge mod
@@ -70,25 +70,21 @@ public class LMArgumentFirst implements ArgumentType<String>, Serializable {
 		return Collections.emptyList();
 	}
 
-	public static class Serializer implements IArgumentSerializer<LMArgumentFirst> {
+	public static class Serializer implements ArgumentSerializer<LMArgumentFirst> {
 
 		@Override
-		public void write(final LMArgumentFirst argument, final PacketBuffer buffer) {
-
+		public void serializeToNetwork(LMArgumentFirst first, FriendlyByteBuf buffer) {
+			// do nothing?
 		}
 
 		@Override
-		public LMArgumentFirst read(PacketBuffer buffer) {
-			try {
-				return new LMArgumentFirst();
-			} catch (Exception e) {
-				return null;
-			}
+		public LMArgumentFirst deserializeFromNetwork(FriendlyByteBuf buffer) {
+			return new LMArgumentFirst();
 		}
 
 		@Override
-		public void write(LMArgumentFirst argument, JsonObject json) {
-
+		public void serializeToJson(LMArgumentFirst first, JsonObject json) {
+			// do nothing?
 		}
 	}
 }
