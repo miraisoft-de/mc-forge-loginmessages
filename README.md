@@ -17,4 +17,4 @@ Usage examples:
 
 /loginmessage add &lt;&lt;c&gt;&gt;Red text
 
-/loginmessage add Hello &lt;&lt;CoolPlayer123&gt;&gt;!
+/loginmessage add Hello &lt;&lt;playername&gt;&gt;!
