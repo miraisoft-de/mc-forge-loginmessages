@@ -25,7 +25,6 @@ public class LMFormatter {
 			text = text.replaceAll(FORMATTING_BEGIN + formattingCode.getCode() + FORMATTING_END,
 					MCTextFormatting.ESCAPE_CHARACTER + formattingCode.getCode());
 		}
-		text = text.replaceAll(FORMATTING_BEGIN + PLAYERNAME + FORMATTING_END, player.getScoreboardName());
 		return text;
 	}
 	
