@@ -101,7 +101,7 @@ public class LoginMessagesMod {
 					final StringBuffer lineBuffer = new StringBuffer();
 					// change default formatting between the messages to make them easier to read
 					lineBuffer.append(LMFormatter.getDefaultLineFormatting(n));
-					lineBuffer.append(reader.readLine());
+					lineBuffer.append(LMFormatter.convertBeforeDisplaying(reader.readLine(), player));
 					MessageUtil.send(player, lineBuffer.toString());
 					n++;
 				}
