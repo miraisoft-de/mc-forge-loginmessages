@@ -156,8 +156,7 @@ public class LMCommand implements Command<CommandSourceStack> {
 		}
 	}
 
-	private void removeAllLoginMessages(final ServerPlayer player, final File file)
-			throws CommandSyntaxException {
+	private void removeAllLoginMessages(final ServerPlayer player, final File file) throws CommandSyntaxException {
 		try {
 			if (file.exists()) {
 				file.delete();
@@ -186,7 +185,7 @@ public class LMCommand implements Command<CommandSourceStack> {
 			}
 			loginMessage.append(arg1);
 			final BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			writer.write(LMFormatter.convertToMCText(loginMessage.toString()));
+			writer.write(LMFormatter.convertToMCText(loginMessage.toString(), player));
 			writer.close();
 			MessageUtil.send(player, "Login message has been added to list");
 		} catch (final Exception e) {
@@ -198,7 +197,8 @@ public class LMCommand implements Command<CommandSourceStack> {
 
 	private void displayUsageHelp(final ServerPlayer player) throws CommandSyntaxException {
 		String[] examples = new String[] { "/loginmessage add Welcome to the server!", "/loginmessage list",
-				"/loginmessage remove 1", "/loginmessage removeall", "/loginmessage add <<c>>Red Text" };
+				"/loginmessage remove 1", "/loginmessage removeall", "/loginmessage add <<c>>Red Text",
+				"/loginmessage add Hello <<playername>>!" };
 		MessageUtil.send(player, "Command usage examples:");
 		for (final String example : examples) {
 			MessageUtil.send(player, example);

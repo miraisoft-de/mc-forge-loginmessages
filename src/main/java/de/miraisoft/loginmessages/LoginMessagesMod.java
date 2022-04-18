@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.mojang.brigadier.CommandDispatcher;
 
-import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.synchronization.ArgumentTypes;
@@ -77,8 +76,7 @@ public class LoginMessagesMod {
 			dispatcher.register(Commands.literal(LMConstants.LOGINMESSAGE)
 					.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL))
 					.then(Commands.argument(LMConstants.ARG0, new LMArgumentFirst())
-							.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL))
-							.executes(new LMCommand())
+							.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL)).executes(new LMCommand())
 							.then(Commands.argument(LMConstants.ARG1, new LMArgumentSecond())
 									.requires(source -> source.hasPermission(MOD_PERMISSION_LEVEL))
 									.executes(new LMCommand()))));
@@ -112,6 +110,4 @@ public class LoginMessagesMod {
 			}
 		}
 	}
-
-	
 }
