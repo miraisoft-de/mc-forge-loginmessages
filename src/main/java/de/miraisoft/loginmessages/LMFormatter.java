@@ -20,11 +20,16 @@ public class LMFormatter {
 		return DEFAULT_FORMATTINGS[n % DEFAULT_FORMATTINGS.length];
 	}
 
-	public static String convertToMCText(String text, Player player) {
+	public static String convertToMCText(String text) {
 		for (MCTextFormatting formattingCode : MCTextFormatting.values()) {
 			text = text.replaceAll(FORMATTING_BEGIN + formattingCode.getCode() + FORMATTING_END,
 					MCTextFormatting.ESCAPE_CHARACTER + formattingCode.getCode());
 		}
+		return text;
+	}
+	
+	public static String convertBeforeDisplaying(String text, Player player) {
+		// display player name #6
 		text = text.replaceAll(FORMATTING_BEGIN + PLAYERNAME + FORMATTING_END, player.getScoreboardName());
 		return text;
 	}
