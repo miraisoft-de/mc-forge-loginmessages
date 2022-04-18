@@ -20,7 +20,7 @@ public class LMFormatter {
 		return DEFAULT_FORMATTINGS[n % DEFAULT_FORMATTINGS.length];
 	}
 
-	public static String convertToMCText(String text, PlayerEntity player) {
+	public static String convertToMCText(String text) {
 		for (MCTextFormatting formattingCode : MCTextFormatting.values()) {
 			text = text.replaceAll(FORMATTING_BEGIN + formattingCode.getCode() + FORMATTING_END,
 					MCTextFormatting.ESCAPE_CHARACTER + formattingCode.getCode());

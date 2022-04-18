@@ -186,7 +186,7 @@ public class LMCommand implements Command<CommandSource> {
 			}
 			loginMessage.append(arg1);
 			final BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			writer.write(LMFormatter.convertToMCText(loginMessage.toString(), player));
+			writer.write(LMFormatter.convertToMCText(loginMessage.toString()));
 			writer.close();
 			MessageUtil.send(player, "Login message has been added to list");
 		} catch (final Exception e) {
