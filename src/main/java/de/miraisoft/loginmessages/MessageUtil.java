@@ -2,7 +2,7 @@ package de.miraisoft.loginmessages;
 
 import com.mojang.brigadier.Message;
 
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
 /**
@@ -23,7 +23,7 @@ public class MessageUtil {
 	 * @param message
 	 */
 	public static void send(final Player player, final String message) {
-		player.displayClientMessage(new TextComponent(FORMATTING + message), false);
+		player.displayClientMessage(Component.literal(FORMATTING + message), false);
 	}
 
 	/**

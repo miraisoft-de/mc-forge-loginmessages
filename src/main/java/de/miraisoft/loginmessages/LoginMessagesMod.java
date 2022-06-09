@@ -15,13 +15,18 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.synchronization.ArgumentTypes;
+import net.minecraft.commands.synchronization.ArgumentTypeInfo;
+import net.minecraft.commands.synchronization.ArgumentTypeInfos;
+import net.minecraft.core.Registry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+
 
 /**
  * Main class for Minecraft forge mod miraisoftloginmessages<br>
@@ -44,7 +49,7 @@ public class LoginMessagesMod {
 	private static final File file = new File(directory.toUri().getPath() + "/loginmessages.conf");
 
 	private static final int MOD_PERMISSION_LEVEL = 3;
-
+	
 	public LoginMessagesMod() {
 		if (!directory.toFile().exists()) {
 			try {
@@ -57,13 +62,18 @@ public class LoginMessagesMod {
 		logger.debug("[init] Mod miraisoftloginmessages is initialized");
 
 		try {
-			ArgumentTypes.register("lmargument0", LMArgumentFirst.class, new LMArgumentFirst.Serializer());
-			ArgumentTypes.register("lmargument1", LMArgumentSecond.class, new LMArgumentSecond.Serializer());
+			DeferredRegister<ArgumentTypeInfo<?, ?>> argTypeRegistry = DeferredRegister
+					.create(Registry.COMMAND_ARGUMENT_TYPE_REGISTRY, MOD_ID);
+			argTypeRegistry.register("lmargument0",
+					() -> ArgumentTypeInfos.registerByClass(LMArgumentFirst.class, new LMArgumentFirst.Info()));
+			argTypeRegistry.register("lmargument1",
+					() -> ArgumentTypeInfos.registerByClass(LMArgumentSecond.class, new LMArgumentSecond.Info()));
+			argTypeRegistry.register(FMLJavaModLoadingContext.get().getModEventBus());
 		} catch (Exception e) {
-			logger.error("[init] Cannot register serializer for argument types", e);
+			logger.error("[init] Cannot register argument types", e);
 		}
 	}
-
+	
 	public static File getFile() {
 		return file;
 	}

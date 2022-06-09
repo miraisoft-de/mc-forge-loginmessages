@@ -13,7 +13,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 
-import net.minecraft.commands.synchronization.ArgumentSerializer;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.network.FriendlyByteBuf;
 
 /**
@@ -60,24 +61,48 @@ public class LMArgumentSecond implements ArgumentType<String>, Serializable {
 		return Collections.emptyList();
 	}
 
-	public static class Serializer implements ArgumentSerializer<LMArgumentSecond> {
+	public static class Info implements ArgumentTypeInfo<LMArgumentSecond, Info.Template> {
 
 		@Override
-		public void serializeToNetwork(LMArgumentSecond second, FriendlyByteBuf buffer) {
-			// do nothing
-			
+		public void serializeToNetwork(Template template, FriendlyByteBuf buffer) {
+			// do nothing?
 		}
 
 		@Override
-		public LMArgumentSecond deserializeFromNetwork(FriendlyByteBuf buffer) {
-			return new LMArgumentSecond();
+		public Template deserializeFromNetwork(FriendlyByteBuf buffer) {
+			return new Template(new LMArgumentSecond());
 		}
 
 		@Override
-		public void serializeToJson(LMArgumentSecond second, JsonObject json) {
-			// TODO do nothing
-			
+		public void serializeToJson(Template template, JsonObject jsonObject) {
+			// do nothing?
 		}
 
+		@Override
+		public Template unpack(LMArgumentSecond arg) {
+			return new Template(arg);
+		}
+		
+		public class Template implements ArgumentTypeInfo.Template<LMArgumentSecond>
+        {
+            final LMArgumentSecond arg;
+
+            Template(LMArgumentSecond arg)
+            {
+                this.arg = arg;
+            }
+
+            @Override
+            public LMArgumentSecond instantiate(CommandBuildContext cbContext)
+            {
+                return new LMArgumentSecond();
+            }
+
+            @Override
+            public ArgumentTypeInfo<LMArgumentSecond, ?> type()
+            {
+                return Info.this;
+            }
+        }
 	}
 }
