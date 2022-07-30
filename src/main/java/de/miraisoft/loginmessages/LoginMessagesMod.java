@@ -101,7 +101,7 @@ public class LoginMessagesMod {
 
 	@SubscribeEvent
 	public void onPlayerLogin(final PlayerLoggedInEvent event) {
-		final Player player = event.getPlayer();
+		final Player player = event.getEntity();
 		if (file.exists()) {
 			try {
 				final BufferedReader reader = new BufferedReader(new FileReader(file));
