@@ -17,7 +17,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;
-import net.minecraft.core.Registry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -26,6 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 
 /**
@@ -63,7 +63,7 @@ public class LoginMessagesMod {
 
 		try {
 			DeferredRegister<ArgumentTypeInfo<?, ?>> argTypeRegistry = DeferredRegister
-					.create(Registry.COMMAND_ARGUMENT_TYPE_REGISTRY, MOD_ID);
+					.create(ForgeRegistries.COMMAND_ARGUMENT_TYPES, MOD_ID);
 			argTypeRegistry.register("lmargument0",
 					() -> ArgumentTypeInfos.registerByClass(LMArgumentFirst.class, new LMArgumentFirst.Info()));
 			argTypeRegistry.register("lmargument1",
