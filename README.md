@@ -2,6 +2,7 @@
 
 This mod for Minecraft Forge provides customizable login messages.
 
+Project web page: https://www.curseforge.com/minecraft/mc-mods/miraisoftloginmessages
 
 Usage examples:
 
