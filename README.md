@@ -2,8 +2,6 @@
 
 This mod for Minecraft Forge provides customizable login messages.
 
-Project web page: https://www.curseforge.com/minecraft/mc-mods/miraisoftloginmessages
-
 Usage examples:
 
 /loginmessage add Welcome to the server!
@@ -19,3 +17,9 @@ Usage examples:
 /loginmessage add &lt;&lt;c&gt;&gt;Red text
 
 /loginmessage add Hello &lt;&lt;playername&gt;&gt;!
+
+Project pages:
+
+https://modrinth.com/mod/custom-login-message
+
+https://www.curseforge.com/minecraft/mc-mods/miraisoftloginmessages
