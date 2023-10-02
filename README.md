@@ -20,6 +20,6 @@ Usage examples:
 
 Project pages:
 
-https://modrinth.com/mod/custom-login-message
+https://modrinth.com/mod/custom-login-messages
 
 https://www.curseforge.com/minecraft/mc-mods/miraisoftloginmessages
