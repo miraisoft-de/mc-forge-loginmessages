@@ -1,5 +1,8 @@
 # mc-forge-loginmessages
 
+#### This GitHub repository is :diamonds: obsolete :diamonds:. Future development can be found at CodeBerg:
+#### https://codeberg.org/miraisoft-de/mc-forge-loginmessages
+
 This mod for Minecraft Forge provides customizable login messages.
 
 Usage examples:
